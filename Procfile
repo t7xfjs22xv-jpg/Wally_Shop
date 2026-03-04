@@ -1,1 +1,1 @@
-web: gunicorn --chdir mysite mysite.wsgi
+web: gunicorn mysite.wsgi
