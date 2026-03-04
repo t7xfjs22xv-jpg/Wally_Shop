@@ -1,0 +1,14 @@
+{% extends 'store/main.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-4 card p-4 shadow-sm" style="margin-top: 50px; border-radius: 15px;">
+        <h3 class="text-center mb-4">👟 Login sa Wally Shop</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary w-100 mt-3" style="border-radius: 10px;">Pasok na!</button>
+        </form>
+        <p class="text-center mt-3">Wala pang account? <a href="{% url 'register' %}">Register dito</a></p>
+    </div>
+</div>
+{% endblock %}
