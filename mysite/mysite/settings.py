@@ -4,7 +4,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_83tvt%gz14w*%7@5#^y*sh=3az0m5f0xt3a-+xj)0!@hkhe0p'
 
-# Gawin nating '*' ang ALLOWED_HOSTS para gumana sa Railway
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
@@ -20,7 +19,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Dinagdag ito para sa CSS at images
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -48,6 +47,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -60,7 +60,13 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# Whitenoise storage para sa maayos na loading ng CSS/JS
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Ito ang fix para sa 403 Forbidden error sa Railway
+CSRF_TRUSTED_ORIGINS = ['https://wallyshop-production.up.railway.app']
