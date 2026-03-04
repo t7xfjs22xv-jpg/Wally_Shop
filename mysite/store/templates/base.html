@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WallyShop | The Future of Budol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        /* Premium Purple Gradient Background */
+        body { 
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            background-attachment: fixed;
+            color: #333; 
+            overflow-x: hidden; 
+            min-height: 100vh;
+        }
+
+        /* Modern Orange Header */
+        .top-nav {
+            background: linear-gradient(90deg, #ff4d2d 0%, #ff833d 100%);
+            padding: 12px 0;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .nav-content {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+        }
+
+        .logo { color: white; font-size: 1.8em; font-weight: 800; text-decoration: none; letter-spacing: -1px; }
+
+        /* Professional Search Bar */
+        .search-box { flex: 1; max-width: 600px; margin: 0 30px; }
+        .search-box input {
+            width: 100%; padding: 10px 15px; border-radius: 4px; border: none; outline: none;
+            font-size: 0.9em; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-links { display: flex; gap: 20px; color: white; font-weight: 600; }
+        .nav-links a { color: white; text-decoration: none; transition: 0.3s; }
+
+        /* Glassmorphism Category Bar */
+        .category-bar {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .cat-container {
+            max-width: 1200px; margin: 0 auto; display: flex; gap: 10px;
+            overflow-x: auto; padding: 5px 20px; scrollbar-width: none;
+        }
+        .cat-container::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            background: rgba(255, 255, 255, 0.9); border: none; color: #555;
+            padding: 8px 18px; border-radius: 4px; text-decoration: none;
+            font-size: 0.85em; white-space: nowrap; transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .cat-btn:hover { background: #ee4d2d; color: white; transform: translateY(-2px); }
+
+        /* Glassmorphism Main Container */
+        .main-container { 
+            max-width: 1200px; 
+            margin: 30px auto; 
+            padding: 30px;
+            min-height: 70vh;
+            background: rgba(255, 255, 255, 0.25); /* Semi-transparent white */
+            backdrop-filter: blur(15px); /* Glass effect */
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        /* Section Title Styling */
+        .section-title {
+            color: white;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .footer { 
+            background: rgba(0, 0, 0, 0.05); color: #fff; padding: 40px 20px; text-align: center;
+            margin-top: 50px; backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-content">
+            <a href="/" class="logo">🧡 WallyShop</a>
+            <form action="{% url 'store:product_list' %}" method="get" class="search-box">
+                <input type="text" name="search" placeholder="Mag-search ng budol dito..." value="{{ request.GET.search }}">
+            </form>
+            <div class="nav-links">
+                <a href="{% url 'store:cart_detail' %}">🛒 Cart</a>
+                <a href="#">👤 Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="category-bar">
+        <div class="cat-container">
+            <a href="{% url 'store:product_list' %}" class="cat-btn">All Items</a>
+            {% for category in categories %}
+                <a href="{% url 'store:product_list_by_category' category.slug %}" class="cat-btn">{{ category.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <main class="main-container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p><b>WallyShop Philippines</b></p>
+        <p style="font-size: 0.8em; opacity: 0.8;">© 2026 High Quality, Low Price. ✨</p>
+    </footer>
+</body>
+</html>

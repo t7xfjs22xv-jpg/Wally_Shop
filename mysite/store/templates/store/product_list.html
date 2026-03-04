@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    /* Modern Glass Card para mag-blend sa purple background */
+    .product-card {
+        background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+        backdrop-filter: blur(10px); /* Swabeng glass effect */
+        border-radius: 12px;
+        padding: 12px;
+        text-decoration: none;
+        color: #333;
+        transition: 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 1); /* Lilinaw pag tinapatan */
+        box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+    }
+
+    .prod-img-cube {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* Fix para sa VS Code warning at pantay na text */
+    .prod-name {
+        font-size: 0.9em;
+        margin: 10px 0 5px;
+        height: 2.4em; 
+        overflow: hidden;
+        line-height: 1.2;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        line-clamp: 2; /* Standard property para sa compatibility */
+    }
+
+    /* Palitan ang dating .price-tag at .buy-btn ng mga ito */
+
+.price-tag {
+    color: #6a5acd; /* Slate Blue - mas sosyal tingnan sa purple background */
+    font-weight: 700;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.buy-btn {
+    background: linear-gradient(135deg, #6e8efb, #a777e3); /* Purple-Blue Gradient */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(110, 142, 251, 0.3);
+}
+
+.buy-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(167, 119, 227, 0.4);
+}
+
+/* Fix para sa VS Code warning mo */
+.prod-name {
+    font-size: 0.9em;
+    margin: 10px 0 5px;
+    height: 2.4em; 
+    overflow: hidden;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2; 
+}
+</style>
+
+<h2 class="section-title" style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">🎯 DAILY DISCOVER</h2>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <a href="{% url 'store:product_detail' product.slug %}" style="text-decoration: none; color: inherit;">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="prod-img-cube">
+            {% else %}
+                <div class="prod-img-cube" style="background: #eee; display: flex; align-items: center; justify-content: center;">📦</div>
+            {% endif %}
+            
+            <div class="prod-name">{{ product.name }}</div>
+            <div class="price-tag">₱{{ product.price }}</div>
+            <div class="stats">⭐ {{ product.rating|default:"5.0" }} | {{ product.sold_count|default:"0" }} sold</div>
+        </a>
+        
+        <form action="{% url 'store:cart_add' product.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="buy-btn">Buy Now</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

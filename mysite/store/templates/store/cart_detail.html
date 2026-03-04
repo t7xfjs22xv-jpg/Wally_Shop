@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .cart-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        color: white;
+        animation: fadeIn 0.5s ease;
+    }
+
+    .cart-title {
+        font-size: 2.5em;
+        font-weight: 800;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Glass Effect Card */
+    .cart-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .item-info b { font-size: 1.2em; color: #fff; }
+    .item-price { color: #4ade80; font-weight: 700; font-size: 1.1em; }
+
+    .remove-link {
+        color: #ff4d4d;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9em;
+        transition: 0.3s;
+    }
+
+    .remove-link:hover { color: #ff8080; text-decoration: underline; }
+
+    .cart-total {
+        margin-top: 25px;
+        text-align: right;
+        font-size: 1.8em;
+        font-weight: 800;
+    }
+
+    /* Primary Purple Button */
+    .checkout-btn {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        border: none;
+        padding: 18px 40px;
+        border-radius: 12px;
+        font-size: 1.1em;
+        font-weight: 700;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+        transition: 0.3s;
+        box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+    }
+
+    .checkout-btn:hover {
+        transform: translateY(-3px);
+        filter: brightness(1.1);
+    }
+
+    .empty-msg { text-align: center; padding: 40px; font-size: 1.2em; opacity: 0.8; }
+</style>
+
+<div class="cart-wrapper">
+    <h1 class="cart-title">🛒 Your Shopping Cart</h1>
+    
+    <div class="cart-card">
+        {% if items %}
+            {% for item in items %}
+                <div class="cart-item">
+                    <div class="item-info">
+                        <b>{{ item.product.name }}</b> <br>
+                        <span style="opacity: 0.7;">Quantity: {{ item.quantity }}</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="item-price">₱{{ item.product.price }}</div>
+                        <a href="{% url 'store:cart_remove' item.id %}" class="remove-link">Remove Item</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="cart-total">
+                <span style="font-size: 0.6em; opacity: 0.8; font-weight: 400;">Total Amount:</span><br>
+                ₱{{ total }}
+            </div>
+
+            <form action="{% url 'store:order_create' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="checkout-btn">Place Order Now</button>
+            </form>
+        {% else %}
+            <div class="empty-msg">
+                <p>Your cart is empty. Time to find some deals!</p>
+                <a href="{% url 'store:product_list' %}" style="color: #6e8efb;">Go back to shop</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
