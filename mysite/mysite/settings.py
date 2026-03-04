@@ -4,6 +4,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_83tvt%gz14w*%7@5#^y*sh=3az0m5f0xt3a-+xj)0!@hkhe0p'
 
+# DEBUG = True sa ngayon para makita natin ang errors kung meron man
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
@@ -19,7 +20,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Importante para sa CSS/Images
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,18 +56,24 @@ DATABASES = {
     }
 }
 
-# Static at Media settings
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# Whitenoise storage para sa maayos na loading ng CSS/JS
+# Whitenoise storage configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media files (Product Images)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Ito ang fix para sa 403 Forbidden error sa Railway
+# --- RAILWAY DEPLOYMENT FIXES ---
+# Ito ang solusyon sa 403 Forbidden error mo
 CSRF_TRUSTED_ORIGINS = ['https://wallyshop-production.up.railway.app']
+
+# Login redirect para sa shopping cart
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'product_list'
