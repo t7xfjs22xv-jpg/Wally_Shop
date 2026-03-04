@@ -34,7 +34,9 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Dito hahanapin ang login.html
+        'DIRS': [
+            os.path.join(BASE_DIR, 'store/templates'), # Idagdag ito
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

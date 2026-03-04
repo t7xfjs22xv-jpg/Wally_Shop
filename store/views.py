@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product, CartItem, Order, OrderItem
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm # Dagdag ito
+from django.contrib import messages # Para sa alert messages
 
 def product_list(request, category_slug=None):
     category = None
@@ -46,3 +48,15 @@ def order_create(request):
         OrderItem.objects.create(order=order, product=item.product, price=item.product.price, quantity=item.quantity)
     items.delete()
     return render(request, 'store/order_created.html', {'order': order})
+
+# BAGONG REGISTER FUNCTION
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Ayos! Gawa na ang account mo. Pwede ka na mag-login.')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
