@@ -1,5 +1,5 @@
 import os
-import dj_database_url # pyright: ignore[reportMissingImports] # Siguraduhing na-install mo ito (pip install dj-database-url)
+import dj_database_url # type: ignore
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,15 +9,15 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'cloudinary_storage',  # Dapat laging una ito sa staticfiles
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
     'store',
-    'cloudinary_storage', # Idagdag ito (pip install django-cloudinary-storage)
-    'cloudinary',         # Idagdag ito (pip install cloudinary)
 ]
 
 MIDDLEWARE = [
@@ -51,8 +51,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-import dj_database_url # type: ignore
-
+# DATABASE CONFIG: Gagamit ng Postgres sa Railway, SQLite sa local.
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
@@ -60,15 +59,14 @@ DATABASES = {
     )
 }
 
-# STATIC FILES
+# STATIC & MEDIA FILES
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# MEDIA FILES FIX: Cloudinary para hindi mabura ang images
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'ddap549ine', # Palitan mo ito mula sa Cloudinary Dashboard
+    'CLOUD_NAME': 'ddap549ine',
     'API_KEY': '681923633512892',
     'API_SECRET': 'bJdy-CVC_scsP-vZLjcwSwDqCY8'
 }
@@ -79,7 +77,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# --- RAILWAY DEPLOYMENT FIXES ---
 CSRF_TRUSTED_ORIGINS = ['https://wallyshop-production.up.railway.app']
 LOGIN_REDIRECT_URL = 'store:product_list'
 LOGOUT_REDIRECT_URL = 'store:product_list'
