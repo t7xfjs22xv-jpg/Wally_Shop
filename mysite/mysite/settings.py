@@ -4,7 +4,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_83tvt%gz14w*%7@5#^y*sh=3az0m5f0xt3a-+xj)0!@hkhe0p'
 
-# DEBUG = True para makita ang errors habang nag-aayos
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
@@ -15,12 +14,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'store', # Siguraduhin na nandito ang app mo
+    'store',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Fix para sa missing styles/images
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -34,9 +33,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'store/templates'), # Idagdag ito
-        ],
+        'DIRS': [os.path.join(BASE_DIR, 'store', 'templates')], # Eksaktong path para sa templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,12 +55,9 @@ DATABASES = {
     }
 }
 
-# Static at Media Files Setup
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-# Para hindi mag-error ang CSS sa Railway
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
@@ -71,11 +65,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# --- RAILWAY & SECURITY FIXES ---
-# Solusyon sa 403 Forbidden error mo
+# Railway Fixes
 CSRF_TRUSTED_ORIGINS = ['https://wallyshop-production.up.railway.app']
-
-# Solusyon sa TemplateDoesNotExist at Login redirect
-LOGIN_URL = 'login'
+LOGIN_URL = 'store:login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
