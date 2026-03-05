@@ -1,5 +1,9 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
 {% block content %}
-<h1>Order Created</h1>
-<p>Your order {{ order.id }} has been placed.</p>
+<div class="text-center mt-5">
+    <h2>🎉 Salamat sa pag-order!</h2>
+    <p>Nakuha na namin ang order mo. Hintayin lang ang tawag o text para sa delivery.</p>
+    <a href="{% url 'store:product_list' %}" class="btn btn-primary mt-3">Balik sa Shopping</a>
+</div>
 {% endblock %}
