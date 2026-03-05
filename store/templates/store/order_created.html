@@ -1,9 +1,62 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="text-center mt-5">
-    <h2>🎉 Salamat sa pag-order!</h2>
-    <p>Nakuha na namin ang order mo. Hintayin lang ang tawag o text para sa delivery.</p>
-    <a href="{% url 'store:product_list' %}" class="btn btn-primary mt-3">Balik sa Shopping</a>
+<style>
+    .order-success-wrapper {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .order-success-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        color: white;
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+    }
+
+    .order-success-card h2 {
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    .order-success-card p {
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+
+    .btn-return {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        border: none;
+        color: white;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 10px;
+        transition: 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-return:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.1);
+        color: white;
+    }
+</style>
+
+<div class="order-success-wrapper">
+    <div class="order-success-card">
+        <h2>Order Successfully Placed</h2>
+        <p>Thank you for your purchase. Your order has been received and is being processed. We will contact you via phone or text message regarding your delivery.</p>
+        <a href="{% url 'store:product_list' %}" class="btn-return">Return to Shop</a>
+    </div>
 </div>
 {% endblock %}
