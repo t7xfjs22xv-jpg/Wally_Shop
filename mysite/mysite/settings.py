@@ -31,7 +31,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mysite.mysite.urls'
+ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
     {
@@ -49,9 +49,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mysite.mysite.wsgi.application'
+WSGI_APPLICATION = 'mysite.wsgi.application'
 
-import dj_database_url
+import dj_database_url # type: ignore
 
 DATABASES = {
     'default': dj_database_url.config(
