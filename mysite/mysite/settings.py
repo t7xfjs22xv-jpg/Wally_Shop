@@ -1,5 +1,6 @@
-from pathlib import Path
 import os
+import dj_database_url # Siguraduhing na-install mo ito (pip install dj-database-url)
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_83tvt%gz14w*%7@5#^y*sh=3az0m5f0xt3a-+xj)0!@hkhe0p'
@@ -15,6 +16,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store',
+    'cloudinary_storage', # Idagdag ito (pip install django-cloudinary-storage)
+    'cloudinary',         # Idagdag ito (pip install cloudinary)
 ]
 
 MIDDLEWARE = [
@@ -33,10 +36,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'store/templates'),
-            os.path.join(BASE_DIR, 'store/templates/store'),
-        ],
+        'DIRS': [os.path.join(BASE_DIR, 'store/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -51,17 +51,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+# DATABASE FIX: Awtomatikong gagamit ng PostgreSQL sa Railway, SQLite sa Local
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600
+    )
 }
 
+# STATIC FILES
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# MEDIA FILES FIX: Cloudinary para hindi mabura ang images
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'iyong_cloud_name', # Palitan mo ito mula sa Cloudinary Dashboard
+    'API_KEY': 'iyong_api_key',
+    'API_SECRET': 'iyong_api_secret'
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -69,12 +79,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # --- RAILWAY DEPLOYMENT FIXES ---
-# Ito ang pamatay sa 403 Forbidden error
 CSRF_TRUSTED_ORIGINS = ['https://wallyshop-production.up.railway.app']
-
-# Force Django to go to the product list after login
 LOGIN_REDIRECT_URL = 'store:product_list'
 LOGOUT_REDIRECT_URL = 'store:product_list'
-
-# Ensure this matches your namespace
 LOGIN_URL = 'store:login'

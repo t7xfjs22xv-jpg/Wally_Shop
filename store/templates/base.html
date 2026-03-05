@@ -7,51 +7,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        
         body { 
             background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
-            background-attachment: fixed;
-            color: #333; 
-            overflow-x: hidden; 
-            min-height: 100vh;
+            background-attachment: fixed; color: #333; overflow-x: hidden; min-height: 100vh;
         }
-
         .top-nav {
             background: linear-gradient(90deg, #ff4d2d 0%, #ff833d 100%);
-            padding: 12px 0;
-            position: sticky; top: 0; z-index: 1000;
+            padding: 12px 0; position: sticky; top: 0; z-index: 1000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
-
         .nav-content {
             max-width: 1200px; margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
         }
-
         .logo { color: white; font-size: 1.8em; font-weight: 800; text-decoration: none; letter-spacing: -1px; }
-
         .search-box { flex: 1; max-width: 600px; margin: 0 30px; }
         .search-box input {
             width: 100%; padding: 10px 15px; border-radius: 4px; border: none; outline: none;
             font-size: 0.9em; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
         .nav-links { display: flex; gap: 20px; color: white; font-weight: 600; align-items: center; }
         .nav-links a { color: white; text-decoration: none; transition: 0.3s; font-size: 0.9em; }
         .nav-links a:hover { opacity: 0.8; }
-
         .category-bar {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);
+            padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
         .cat-container {
             max-width: 1200px; margin: 0 auto; display: flex; gap: 10px;
             overflow-x: auto; padding: 5px 20px; scrollbar-width: none;
         }
         .cat-container::-webkit-scrollbar { display: none; }
-
         .cat-btn {
             background: rgba(255, 255, 255, 0.9); border: none; color: #555;
             padding: 8px 18px; border-radius: 4px; text-decoration: none;
@@ -59,19 +45,12 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         .cat-btn:hover { background: #ee4d2d; color: white; transform: translateY(-2px); }
-
         .main-container { 
-            max-width: 1200px; 
-            margin: 30px auto; 
-            padding: 30px;
-            min-height: 70vh;
-            background: rgba(255, 255, 255, 0.25); 
-            backdrop-filter: blur(15px); 
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 1200px; margin: 30px auto; padding: 30px; min-height: 70vh;
+            background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(15px); 
+            border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
         }
-
         .footer { 
             background: rgba(0, 0, 0, 0.05); color: #fff; padding: 40px 20px; text-align: center;
             margin-top: 50px; backdrop-filter: blur(5px);
@@ -80,24 +59,24 @@
 </head>
 <body>
     <nav class="top-nav">
-        <div class="nav-content">
-            <a href="{% url 'store:product_list' %}" class="logo">🧡 WallyShop</a>
-            <form action="{% url 'store:product_list' %}" method="get" class="search-box">
-                <input type="text" name="search" placeholder="Mag-search ng budol dito..." value="{{ request.GET.search }}">
-            </form>
-            <div class="nav-links">
-                <a href="{% url 'store:cart_detail' %}">🛒 Cart</a>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'store:order_list' %}">📦 Orders</a>
-                    <a href="{% url 'store:profile' %}">👤 Profile</a>
-                    <a href="{% url 'store:logout' %}" style="color: #ffdada; font-size: 0.8em;">Logout</a>
-                {% else %}
-                    <a href="{% url 'store:login' %}">🔑 Login</a>
-                    <a href="{% url 'store:register' %}">📝 Register</a>
-                {% endif %}
-            </div>
+    <div class="nav-content">
+        <a href="{% url 'store:product_list' %}" class="logo">🧡 WallyShop</a>
+        <form action="{% url 'store:product_list' %}" method="get" class="search-box">
+            <input type="text" name="search" placeholder="Mag-search ng budol dito..." value="{{ request.GET.search }}">
+        </form>
+        <div class="nav-links">
+            <a href="{% url 'store:cart_detail' %}">🛒 Cart</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'store:order_list' %}">📦 Orders</a>
+                <a href="{% url 'store:profile' %}">👤 Profile</a>
+                <a href="{% url 'store:logout' %}" style="color: #ffdada; font-size: 0.8em;">Logout</a>
+            {% else %}
+                <a href="{% url 'store:login' %}">🔑 Login</a>
+                <a href="{% url 'store:register' %}">📝 Register</a>
+            {% endif %}
         </div>
-    </nav>
+    </div>
+</nav>
 
     <div class="category-bar">
         <div class="cat-container">
