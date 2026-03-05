@@ -72,10 +72,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Ito ang pamatay sa 403 Forbidden error
 CSRF_TRUSTED_ORIGINS = ['https://wallyshop-production.up.railway.app']
 
-# Para direkta sa login kapag bibili
-LOGIN_URL = 'store:login'
-# Where to go after logging in
+# Force Django to go to the product list after login
 LOGIN_REDIRECT_URL = 'store:product_list'
-
-# Where to go after logging out
 LOGOUT_REDIRECT_URL = 'store:product_list'
+
+# Ensure this matches your namespace
+LOGIN_URL = 'store:login'
