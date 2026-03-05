@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product, CartItem, Order, OrderItem
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm # Dagdag ito
-from django.contrib import messages # Para sa alert messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
+# Product and Cart Views
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -49,7 +50,7 @@ def order_create(request):
     items.delete()
     return render(request, 'store/order_created.html', {'order': order})
 
-# BAGONG REGISTER FUNCTION
+# Auth and Profile Views
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -60,3 +61,8 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+@login_required
+def profile_view(request):
+    # Dito kukuha ang Django ng info ng user na naka-login
+    return render(request, 'registration/profile.html')
