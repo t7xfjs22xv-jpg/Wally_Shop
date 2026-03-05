@@ -30,10 +30,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mysite.urls'
 
-TEMPLATES = [
+TTEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'store', 'templates')], # Dito ang saktong location
+        'DIRS': [os.path.join(BASE_DIR, 'store', 'templates')], # Eksaktong path fix
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
