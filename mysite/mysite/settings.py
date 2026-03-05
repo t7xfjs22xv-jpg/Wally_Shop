@@ -31,7 +31,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mysite.mysite.urls' # Dagdagan ng "mysite." sa unahan
+ROOT_URLCONF = 'mysite.mysite.urls'
 
 TEMPLATES = [
     {
@@ -49,9 +49,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mysite.wsgi.application'
+WSGI_APPLICATION = 'mysite.mysite.wsgi.application'
 
-# DATABASE FIX: Awtomatikong gagamit ng PostgreSQL sa Railway, SQLite sa Local
+import dj_database_url
+
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
