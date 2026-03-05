@@ -74,5 +74,8 @@ CSRF_TRUSTED_ORIGINS = ['https://wallyshop-production.up.railway.app']
 
 # Para direkta sa login kapag bibili
 LOGIN_URL = 'store:login'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+# Where to go after logging in
+LOGIN_REDIRECT_URL = 'store:product_list'
+
+# Where to go after logging out
+LOGOUT_REDIRECT_URL = 'store:product_list'
