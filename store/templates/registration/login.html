@@ -2,12 +2,11 @@
 {% block content %}
 <style>
     .auth-wrapper {
-        min-height: 75vh;
+        min-height: 80vh;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-
     .auth-card {
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(15px);
@@ -18,63 +17,69 @@
         box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         width: 100%;
         max-width: 400px;
-        text-align: center;
     }
-
     .auth-card h3 {
         font-weight: 700;
         margin-bottom: 30px;
-        letter-spacing: 1px;
+        text-align: center;
     }
-
-    /* Standardizing the Django form inputs */
-    .auth-card p {
+    .form-group {
+        margin-bottom: 20px;
         text-align: left;
-        margin-bottom: 15px;
     }
-
-    .auth-card input {
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+    }
+    .form-group input {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         border-radius: 8px;
         border: 1px solid rgba(255, 255, 255, 0.3);
         background: rgba(255, 255, 255, 0.1);
         color: white;
+        outline: none;
     }
-
     .btn-submit {
         background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
         border: none;
         color: white;
         font-weight: bold;
-        padding: 12px;
+        padding: 14px;
         border-radius: 10px;
         width: 100%;
-        margin-top: 20px;
+        margin-top: 10px;
+        cursor: pointer;
         transition: 0.3s;
     }
-
-    .btn-submit:hover {
-        transform: translateY(-2px);
-        filter: brightness(1.1);
-    }
-
-    .auth-link {
-        color: #4ade80;
-        text-decoration: none;
-        font-weight: 600;
-    }
+    .btn-submit:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .auth-link { color: #4ade80; text-decoration: none; font-weight: 600; }
+    .error-msg { color: #ff6b6b; font-size: 0.85rem; margin-bottom: 15px; text-align: left; }
 </style>
 
 <div class="auth-wrapper">
     <div class="auth-card">
         <h3>Member Login</h3>
+        
+        {% if form.errors %}
+            <div class="error-msg">Invalid username or password. Please try again.</div>
+        {% endif %}
+
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required autocomplete="current-password">
+            </div>
             <button type="submit" class="btn-submit">Sign In</button>
         </form>
-        <p class="text-center mt-4" style="text-align: center;">
+        
+        <p style="text-align: center; margin-top: 25px; font-size: 0.9rem;">
             New member? <a href="{% url 'store:register' %}" class="auth-link">Create an account</a>
         </p>
     </div>
