@@ -68,9 +68,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # MEDIA FILES FIX: Cloudinary para hindi mabura ang images
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'iyong_cloud_name', # Palitan mo ito mula sa Cloudinary Dashboard
-    'API_KEY': 'iyong_api_key',
-    'API_SECRET': 'iyong_api_secret'
+    'CLOUD_NAME': 'ddap549ine', # Palitan mo ito mula sa Cloudinary Dashboard
+    'API_KEY': '681923633512892',
+    'API_SECRET': 'bJdy-CVC_scsP-vZLjcwSwDqCY8'
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
