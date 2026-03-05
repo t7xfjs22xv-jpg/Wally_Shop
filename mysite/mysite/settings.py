@@ -33,7 +33,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'store', 'templates')], # Eksaktong path para sa templates
+        'DIRS': [os.path.join(BASE_DIR, 'store', 'templates')], # Dito ang saktong location
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,8 +65,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Railway Fixes
+# --- RAILWAY DEPLOYMENT FIXES ---
+# Ito ang pamatay sa 403 Forbidden error
 CSRF_TRUSTED_ORIGINS = ['https://wallyshop-production.up.railway.app']
+
+# Para direkta sa login kapag bibili
 LOGIN_URL = 'store:login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
