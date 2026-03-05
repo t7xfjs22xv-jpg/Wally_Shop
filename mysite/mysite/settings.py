@@ -51,11 +51,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-# DATABASE CONFIG: Gagamit ng Postgres sa Railway, SQLite sa local.
+#import dj_database_url
+import os
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
+        default=os.environ.get('DATABASE_URL')
     )
 }
 
