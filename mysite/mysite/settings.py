@@ -1,5 +1,5 @@
 import os
-import dj_database_url # Siguraduhing na-install mo ito (pip install dj-database-url)
+import dj_database_url # pyright: ignore[reportMissingImports] # Siguraduhing na-install mo ito (pip install dj-database-url)
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +31,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'mysite.mysite.urls' # Dagdagan ng "mysite." sa unahan
 
 TEMPLATES = [
     {
