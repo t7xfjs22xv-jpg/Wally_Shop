@@ -1,15 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+    .register-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        color: white;
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        margin-top: 50px;
+    }
+    .btn-register {
+        background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+        border: none;
+        font-weight: bold;
+        transition: 0.3s;
+        color: white;
+    }
+    .btn-register:hover {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+        color: white;
+    }
+    .login-link { color: #60a5fa; text-decoration: none; font-weight: bold; }
+</style>
+
 <div class="row justify-content-center">
-    <div class="col-md-5 card p-4 shadow-sm mt-5" style="border-radius: 15px;">
+    <div class="col-md-5 register-card">
         <h3 class="text-center mb-4">🆕 Gawa Tayo ng Account</h3>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-success w-100 mt-3" style="border-radius: 10px;">Register na!</button>
+            <button type="submit" class="btn btn-register w-100 mt-3">REGISTER NA! ✨</button>
         </form>
-        <hr>
-        <p class="text-center">May account ka na? <a href="{% url 'store:login' %}">Dito ka mag-login</a></p>
+        <hr style="border-color: rgba(255,255,255,0.2);">
+        <p class="text-center">May account ka na? 
+            <a href="{% url 'store:login' %}" class="login-link">Dito ka mag-login</a>
+        </p>
     </div>
 </div>
 {% endblock %}
