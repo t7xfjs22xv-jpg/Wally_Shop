@@ -88,10 +88,12 @@
             <div class="nav-links">
                 <a href="{% url 'store:cart_detail' %}">🛒 Cart</a>
                 {% if user.is_authenticated %}
+                    <a href="{% url 'store:order_list' %}">📦 Orders</a>
                     <a href="{% url 'store:profile' %}">👤 Profile</a>
                     <a href="{% url 'store:logout' %}" style="color: #ffdada; font-size: 0.8em;">Logout</a>
                 {% else %}
                     <a href="{% url 'store:login' %}">🔑 Login</a>
+                    <a href="{% url 'store:register' %}">📝 Register</a>
                 {% endif %}
             </div>
         </div>

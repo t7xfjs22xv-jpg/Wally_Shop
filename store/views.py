@@ -50,7 +50,7 @@ def order_create(request):
     items.delete()
     return render(request, 'store/order_created.html', {'order': order})
 
-# Auth and Profile Views
+# Auth, Profile, and Orders List
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -64,5 +64,10 @@ def register(request):
 
 @login_required
 def profile_view(request):
-    # Dito kukuha ang Django ng info ng user na naka-login
     return render(request, 'registration/profile.html')
+
+@login_required
+def order_list(request):
+    # Dito natin kukunin lahat ng order ng user, pinakabago ang una
+    orders = Order.objects.filter(user=request.user).order_by('-created')
+    return render(request, 'store/order_list.html', {'orders': orders})

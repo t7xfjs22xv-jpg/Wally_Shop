@@ -15,6 +15,7 @@ urlpatterns = [
     path('cart/add/<int:product_id>/', views.cart_add, name='cart_add'),
     path('cart/remove/<int:item_id>/', views.cart_remove, name='cart_remove'),
     path('order/create/', views.order_create, name='order_create'),
+    path('orders/', views.order_list, name='order_list'), # Idagdag ito para sa listahan ng orders
 
     # Accounts (Login, Logout, Register, Profile)
     path('register/', views.register, name='register'),

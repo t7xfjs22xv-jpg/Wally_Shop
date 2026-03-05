@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-card" style="max-width: 800px; margin: auto;">
+    <h3 class="section-title">My Orders 📦</h3>
+    {% for order in orders %}
+        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 10px; text-align: left;">
+            <p><strong>Order ID:</strong> #{{ order.id }} | <strong>Date:</strong> {{ order.created|date:"M d, Y" }}</p>
+            <p><strong>Status:</strong> {% if order.paid %}✅ Paid{% else %}⏳ Pending{% endif %}</p>
+        </div>
+    {% empty %}
+        <p>Wala ka pang order. Mag-budol ka na! 🛒</p>
+    {% endfor %}
+</div>
+{% endblock %}
